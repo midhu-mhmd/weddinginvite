@@ -16,7 +16,6 @@ const sections = [
 
 export default function Nav() {
   const [active, setActive] = useState('hero');
-  const [mobileOpen, setMobileOpen] = useState(false);
   const navRef = useRef(null);
 
   useEffect(() => {
@@ -43,7 +42,6 @@ export default function Nav() {
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
-      setMobileOpen(false);
     }
   };
 
@@ -82,45 +80,6 @@ export default function Nav() {
           </button>
         ))}
       </nav>
-
-      {/* Mobile — bottom bar */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden safe-bottom">
-        {/* Toggle button */}
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="absolute right-4 bottom-full mb-4 w-11 h-11 rounded-full bg-olive/90 backdrop-blur-sm flex items-center justify-center border border-sage/30"
-          aria-label="Toggle navigation"
-        >
-          <div className="flex flex-col gap-1">
-            <span className={cn('block w-4 h-px bg-cream transition-transform duration-300', mobileOpen && 'rotate-45 translate-y-[3px]')} />
-            <span className={cn('block w-4 h-px bg-cream transition-opacity duration-300', mobileOpen && 'opacity-0')} />
-            <span className={cn('block w-4 h-px bg-cream transition-transform duration-300', mobileOpen && '-rotate-45 -translate-y-[3px]')} />
-          </div>
-        </button>
-
-        {/* Mobile nav panel */}
-        <div
-          className={cn(
-            'bg-olive/95 backdrop-blur-md border-t border-sage/20 transition-transform duration-300 ease-out',
-            mobileOpen ? 'translate-y-0' : 'translate-y-full'
-          )}
-        >
-          <div className="grid grid-cols-4 gap-1 p-4">
-            {sections.map(({ id, label }) => (
-              <button
-                key={id}
-                onClick={() => scrollTo(id)}
-                className={cn(
-                  'py-3 text-[10px] uppercase tracking-wider font-sans rounded transition-colors min-h-[44px]',
-                  active === id ? 'text-gold bg-deep-olive/50' : 'text-cream/60'
-                )}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
     </>
   );
 }
